@@ -16,9 +16,9 @@ localhost:8080
 
 
 Coding is done mostly in
-app/Components/ExpenseManager.js
-app/Components/MainContainer.js
-app/stores/MainStore.js
+app/Components/ExpenseManager.js, 
+app/Components/MainContainer.js, 
+app/stores/MainStore.js, 
 app/Actions/ActionCreators.js
 
 
