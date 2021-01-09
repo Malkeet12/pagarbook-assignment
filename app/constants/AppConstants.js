@@ -1,6 +1,3 @@
 export const ActionTypes = {
   ADD_ENTRY: "ADD_ENTRY",
-  TOP_TYPE_002: "TOP_TYPE_002",
-  SAMPLE_TYPE_001: "SAMPLE_TYPE_001",
-  SAMPLE_TYPE_002: "SAMPLE_TYPE_002",
 };

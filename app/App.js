@@ -3,8 +3,7 @@ import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import TopContainer from "./components/TopContainer";
-import SampleContainer from "./components/SampleContainer";
+import Container from "./components/MainContainer";
 
 const muiTheme = createMuiTheme({});
 
@@ -28,10 +27,7 @@ render(
     <Router>
       <Switch>
         <Route exact path="/">
-          <TopContainer />
-        </Route>
-        <Route path="/sample">
-          <SampleContainer />
+          <Container />
         </Route>
       </Switch>
     </Router>

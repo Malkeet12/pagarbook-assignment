@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Container } from "flux/utils";
-import TopStore from "../stores/TopStore";
+import TopStore from "../stores/MainStore";
 import { Navi } from "./Navi";
-import TopContent from "./TopContent";
+import MainContent from "./ExpenseManager";
 
-class TopContainer extends Component {
+class MainContainer extends Component {
   static getStores() {
     return [TopStore];
   }
@@ -23,10 +23,10 @@ class TopContainer extends Component {
     return (
       <>
         <Navi title="Top" />
-        <TopContent received={received} paid={paid} data={data} />
+        <MainContent received={received} paid={paid} data={data} />
       </>
     );
   }
 }
 
-export default Container.create(TopContainer);
+export default Container.create(MainContainer);

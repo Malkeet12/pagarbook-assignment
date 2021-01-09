@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import { TopActionCreators } from "../actions/TopActionCreators";
+import { TopActionCreators } from "../actions/ActionCreators";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import {
@@ -26,7 +26,7 @@ const customStyles = {
   },
 };
 
-class TopContent extends React.Component {
+class ExpenseManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +36,6 @@ class TopContent extends React.Component {
     };
   }
 
-  // const TopContent = ({ received, paid, total }) => {
   handleClick = () => {
     this.setState({ isOpen: true });
   };
@@ -171,10 +170,10 @@ class TopContent extends React.Component {
   }
 }
 
-TopContent.propTypes = {
+ExpenseManager.propTypes = {
   received: PropTypes.string.isRequired,
   paid: PropTypes.string.isRequired,
   data: PropTypes.string.isRequired,
 };
 
-export default TopContent;
+export default ExpenseManager;
