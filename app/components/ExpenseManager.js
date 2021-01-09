@@ -43,7 +43,11 @@ class ExpenseManager extends React.Component {
     e.stopPropagation();
     let { type, amount } = this.state;
     AddEntryActionCreators.actionAddEntry({ type: type, amount: amount });
+    this.resetData();
     this.closeModal();
+  };
+  resetData = () => {
+    this.setState({ amount: 0, type: "received" });
   };
   closeModal = () => {
     this.setState({ isOpen: false });
