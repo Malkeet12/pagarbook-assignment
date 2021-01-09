@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import { TopActionCreators } from "../actions/ActionCreators";
+import { AddEntryActionCreators } from "../actions/ActionCreators";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import {
@@ -36,28 +36,30 @@ class ExpenseManager extends React.Component {
     };
   }
 
-  handleClick = () => {
+  addEntry = () => {
     this.setState({ isOpen: true });
   };
   onSubmit = (e) => {
     e.stopPropagation();
     let { type, amount } = this.state;
-    TopActionCreators.actionCreator001({ type: type, amount: amount });
+    AddEntryActionCreators.actionAddEntry({ type: type, amount: amount });
     this.closeModal();
   };
-  closeModal = (data) => {
+  closeModal = () => {
     this.setState({ isOpen: false });
   };
-  handleChange = (e) => {
-    this.setState({ type: e.target.value });
-  };
-  handleInputChange = (e) => {
-    this.setState({ amount: e.target.value });
+  handleChange = (e, key) => {
+    this.setState({ [key]: e.target.value });
   };
   render() {
     let { received, paid, data } = this.props;
     let { type, amount } = this.state;
-    const listItems = data.map((d) => <li key={d}>{d}</li>);
+    const listItems = data.map((d) => (
+      <li key={d}>
+        {d.type == "paid" ? "(-)" : ""} Rs.{d.amount}
+      </li>
+    ));
+
     return (
       <div>
         <Modal
@@ -67,15 +69,13 @@ class ExpenseManager extends React.Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
-
           <FormControl>
             <FormLabel component="legend">Type</FormLabel>
             <RadioGroup
               aria-label="type"
               name="type1"
               value={type}
-              onChange={this.handleChange}
+              onChange={(e) => this.handleChange(e, "type")}
             >
               <FormControlLabel
                 value="received"
@@ -90,7 +90,7 @@ class ExpenseManager extends React.Component {
             <Input
               id="my-input"
               aria-describedby="my-helper-text"
-              onChange={this.handleInputChange}
+              onChange={(e) => this.handleChange(e, "amount")}
             />
             <FormHelperText id="my-helper-text">{amount}</FormHelperText>
           </FormControl>
@@ -98,7 +98,14 @@ class ExpenseManager extends React.Component {
             <Button variant="contained" onClick={this.closeModal}>
               Close
             </Button>
-            <Button variant="contained" color="primary" onClick={this.onSubmit}>
+            <Button
+              style={{
+                marginTop: "20px",
+              }}
+              variant="contained"
+              color="primary"
+              onClick={this.onSubmit}
+            >
               Add
             </Button>
           </FormControl>
@@ -132,9 +139,13 @@ class ExpenseManager extends React.Component {
               </div>
               <Button
                 variant="contained"
-                style={{ backgroundColor: "black", color: "white" }}
+                style={{
+                  backgroundColor: "black",
+                  color: "white",
+                  marginTop: "20px",
+                }}
                 size="large"
-                onClick={this.handleClick}
+                onClick={this.addEntry}
               >
                 Add Entry
               </Button>
@@ -142,19 +153,35 @@ class ExpenseManager extends React.Component {
             <div
               style={{
                 display: "flex",
+                marginTop: "30px",
               }}
             >
               <div
                 style={{
+                  display: "flex",
+                  flexDirection: "column",
                   marginRight: "50px",
                 }}
               >
-                total received {received}
+                <span style={{ color: "green", fontSize: "30px" }}>
+                  Rs. {received}
+                </span>
+                <span>Total Received </span>
               </div>
-              <div>
-                total paid {paid > 0 ? "-" : ""}
-                {paid}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginRight: "50px",
+                }}
+              >
+                <span style={{ color: "red", fontSize: "30px" }}>
+                  {paid > 0 ? "(-)" : ""} Rs.
+                  {paid}
+                </span>
+                <span>Total Paid </span>
               </div>
+              <div></div>
             </div>
           </div>
         </div>
@@ -163,7 +190,7 @@ class ExpenseManager extends React.Component {
             margin: "100px",
           }}
         >
-          {listItems}
+          {data.length > 0 ? listItems : <div>List Empty State</div>}
         </div>
       </div>
     );

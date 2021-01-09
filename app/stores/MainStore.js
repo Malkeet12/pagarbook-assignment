@@ -16,15 +16,16 @@ class TopStore extends ReduceStore {
     switch (action.type) {
       case ActionTypes.ADD_ENTRY: {
         let amount = parseInt(action.data.amount);
-
-        if (action.data.type == "paid") {
+        let type = action.data.type;
+        if (type == "paid") {
           state.paid += amount;
         } else {
           state.received += amount;
         }
 
         // newData = ["date":"1",users:[{ amount: amount, type: action.data.type }]];
-        state.data.push(amount);
+
+        state.data.push({ amount: amount, type: type });
         return {
           received: state.received,
           paid: state.paid,
